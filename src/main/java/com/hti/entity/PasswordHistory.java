@@ -22,9 +22,6 @@ public class PasswordHistory {
     @Column(name = "user_id", nullable = false)
     private UUID userId;
 
-    @Column(name = "old_password", nullable = false)
-    private String oldPassword;
-
     @Column(name = "new_password", nullable = false)
     private String newPassword;
 
