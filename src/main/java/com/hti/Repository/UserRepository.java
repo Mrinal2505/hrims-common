@@ -12,11 +12,15 @@ import com.hti.entity.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, UUID>,
-JpaSpecificationExecutor<User>{
+        JpaSpecificationExecutor<User> {
+
+    Optional<User> findByUsername(String username);
+
     Optional<User> findByEmail(String email);
+
     boolean existsByEmail(String email);
+
+    boolean existsByUsername(String username);
+
     List<User> findByOrganisationId(UUID organisationId);
-    List<User> findByEntityId(UUID entityId);
-    boolean existsByUsername(String username);       
-    Optional<User> findByUsername(String username); 
 }

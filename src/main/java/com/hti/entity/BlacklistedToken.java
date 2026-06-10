@@ -23,8 +23,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "login_history")
-public class LoginHistory {
+@Table(name = "blacklisted_token")
+public class BlacklistedToken {
 
     @Id
     @GeneratedValue
@@ -35,19 +35,16 @@ public class LoginHistory {
     @Column(name = "user_id", nullable = false)
     private UUID userId;
 
-    @Column(name = "ip_address")
-    private String ipAddress;                  // INET → String (Hibernate maps fine)
+    @Column(name = "token", length = 512, nullable = false, unique = true)
+    private String token;
 
-    @Column(name = "user_agent", length = 512)
-    private String userAgent;
+    @Column(name = "expires_at", nullable = false)
+    private OffsetDateTime expiresAt;
 
-    @Column(name = "status", length = 20, nullable = false)
-    private String status;
-
-    @Column(name = "failure_reason", length = 255)
-    private String failureReason;
+    @Column(name = "reason", length = 255, nullable = false)
+    private String reason;
 
     @CreationTimestamp
-    @Column(name = "login_at", updatable = false, nullable = false)
-    private OffsetDateTime loginAt;            // TIMESTAMPTZ → OffsetDateTime
+    @Column(name = "blacklisted_at", updatable = false, nullable = false)
+    private OffsetDateTime blacklistedAt;
 }
