@@ -11,13 +11,16 @@ import com.hti.entity.organisation;
 
 @Repository
 public interface OrganisationRepository extends JpaRepository<organisation, UUID>,
-JpaSpecificationExecutor<organisation> {  
+        JpaSpecificationExecutor<organisation> {
+
     Optional<organisation> findByEmail(String email);
+
     boolean existsByEmail(String email);
+
     boolean existsByCompanyRegistrationNumber(String companyRegistrationNumber);
-    
-    boolean existsByDomain(String domain);    
-    
+
+    boolean existsByDomain(String domain);
+
     boolean existsByCompanyRegistrationNumberAndDomainAndEmail(
             String companyRegistrationNumber,
             String domain,

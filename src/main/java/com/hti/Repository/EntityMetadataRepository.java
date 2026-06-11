@@ -1,6 +1,7 @@
 package com.hti.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,11 +14,11 @@ import com.hti.entity.EntityMetadata;
 public interface EntityMetadataRepository extends JpaRepository<EntityMetadata, UUID>,
         JpaSpecificationExecutor<EntityMetadata> {
 
-    List<EntityMetadata> findByEntityId(UUID entityId);
-
     List<EntityMetadata> findByOrganisationId(UUID organisationId);
 
-    boolean existsByEntityId(UUID entityId);
+    List<EntityMetadata> findByEntityType(String entityType);
 
-    boolean existsByOrganisationId(UUID organisationId);
+    Optional<EntityMetadata> findByOrganisationIdAndEntityType(UUID organisationId, String entityType);
+
+    boolean existsByOrganisationIdAndEntityType(UUID organisationId, String entityType);
 }

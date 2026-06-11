@@ -23,12 +23,8 @@ import lombok.Setter;
 @Table(name = "organisation",
     uniqueConstraints = {
         @UniqueConstraint(
-            name = "uk_org_reg_domain_email",
-            columnNames = {
-                "company_registration_number",
-                "domain",
-                "email"
-            }
+            name = "uq_organisation_company_reg_no",
+            columnNames = {"company_registration_number"}
         )
     }
 )
@@ -40,56 +36,73 @@ public class organisation {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
-    @Column(name = "organization_name", nullable = false)
-    private String organizationName;
+    @Column(name = "organisation_name", nullable = false)
+    private String organisationName;
 
     @Column(name = "domain")
     private String domain;
 
-    @Column(name = "organization_type")
-    private String organizationType;
+    @Column(name = "organisation_type", length = 50)
+    private String organisationType;
 
-    @Column(name = "company_registration_number")
+    @Column(name = "company_registration_number", length = 100)
     private String companyRegistrationNumber;
 
-    @Column(name = "website_url")
+    @Column(name = "website_url", length = 512)
     private String websiteUrl;
 
-    @Column(name = "logo_url")
+    @Column(name = "logo_url", length = 512)
     private String logoUrl;
 
-    @Column(name = "industry_type")
+    @Column(name = "industry_type", length = 100)
     private String industryType;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "phone")
+    @Column(name = "phone", nullable = false, length = 20)
     private String phone;
 
     @Column(name = "registered_address", columnDefinition = "TEXT")
     private String registeredAddress;
 
-    @Column(name = "city")
+    @Column(name = "city", length = 100)
     private String city;
 
-    @Column(name = "state")
+    @Column(name = "state", length = 100)
     private String state;
 
-    @Column(name = "country")
+    @Column(name = "country", length = 100)
     private String country;
 
-    @Column(name = "postal_code")
+    @Column(name = "postal_code", length = 20)
     private String postalCode;
 
-    @Column(name = "timezone")
-    private String timezone;
+    @Column(name = "timezone", nullable = false, length = 64)
+    @Builder.Default
+    private String timezone = "UTC";
+
+    @Column(name = "number_of_employees", nullable = false)
+    private Integer numberOfEmployees;
+
+    @Column(name = "is_active", nullable = false)
+    @Builder.Default
+    private boolean isActive = true;
+
+    @Column(name = "deleted_at")
+    private LocalDateTime deletedAt;
+
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "updated_by")
+    private String updatedBy;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false, nullable = false)
     private LocalDateTime createdAt;
-    
-    @Column(name = "updated_at")
+
     @UpdateTimestamp
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 }

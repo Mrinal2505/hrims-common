@@ -29,8 +29,8 @@ public class OrganisationEntity {
     @Column(name = "organisation_id", nullable = false)
     private UUID organisationId;
 
-    @Column(name = "entity_type", nullable = false)
-    private String entityType;
+    @Column(name = "meta_id")
+    private UUID metaId;
 
     @Column(name = "priority")
     private Integer priority;
@@ -39,11 +39,21 @@ public class OrganisationEntity {
     @Column(name = "attributes", columnDefinition = "jsonb")
     private Map<String, Object> attributes;
 
+    @Column(name = "is_active", nullable = false)
+    @Builder.Default
+    private boolean isActive = true;
+
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "updated_by")
+    private String updatedBy;
+
     @CreationTimestamp
     @Column(name = "created_at", updatable = false, nullable = false)
     private LocalDateTime createdAt;
-    
-    @Column(name = "updated_at")
+
     @UpdateTimestamp
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 }
