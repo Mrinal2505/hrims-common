@@ -23,8 +23,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "login_history")
-public class LoginHistory {
+@Table(name = "action_link")
+public class ActionLink {
 
     @Id
     @GeneratedValue
@@ -35,19 +35,21 @@ public class LoginHistory {
     @Column(name = "user_id", nullable = false)
     private UUID userId;
 
-    @Column(name = "ip_address")
-    private String ipAddress;                  // INET → String (Hibernate maps fine)
+    @Column(name = "token", length = 512, nullable = false, unique = true)
+    private String token;
 
-    @Column(name = "user_agent", length = 512)
-    private String userAgent;
+    @Builder.Default
+    @Column(name = "purpose", length = 30, nullable = false)
+    private String purpose = "PASSWORD_RESET";
 
-    @Column(name = "status", length = 20, nullable = false)
-    private String status;
+    @Column(name = "expires_on", nullable = false)
+    private OffsetDateTime expiresOn;
 
-    @Column(name = "failure_reason", length = 255)
-    private String failureReason;
+    @Builder.Default
+    @Column(name = "is_used", nullable = false)
+    private boolean isUsed = false;
 
     @CreationTimestamp
-    @Column(name = "login_at", updatable = false, nullable = false)
-    private OffsetDateTime loginAt;            // TIMESTAMPTZ → OffsetDateTime
+    @Column(name = "created_at", updatable = false, nullable = false)
+    private OffsetDateTime createdAt;
 }

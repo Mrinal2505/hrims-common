@@ -11,8 +11,9 @@ import com.hti.entity.PasswordHistory;
 
 @Repository
 public interface PasswordHistoryRepository extends JpaRepository<PasswordHistory, UUID>,
-JpaSpecificationExecutor<PasswordHistory> {
+        JpaSpecificationExecutor<PasswordHistory> {
 
-  
     List<PasswordHistory> findByUserIdOrderByChangedAtDesc(UUID userId);
+
+    boolean existsByUserIdAndPassword(UUID userId, String password);
 }
